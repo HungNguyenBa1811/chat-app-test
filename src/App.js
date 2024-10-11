@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, query, orderBy, limit, serverTimestamp, addDoc } from 'firebase/firestore'
+import { getFirestore, collection, query, orderBy, serverTimestamp, addDoc } from 'firebase/firestore'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -65,7 +64,7 @@ function ChatRoom(){
   const messagesRef = collection(db, 'messages');
 
   // Collect the msg query from msg ref, order by time sent
-  const messagesQuery = query(messagesRef, orderBy('createdAt'), limit(25));
+  const messagesQuery = query(messagesRef, orderBy('createdAt'));
 
   // Using hooks to retrieve data from a snapshot
   const [messages] = useCollectionData(messagesQuery, {idField: 'id'});
@@ -78,7 +77,7 @@ function ChatRoom(){
     e.preventDefault();
     const {uid, photoURL, displayName} = auth.currentUser;
     // Push requested data to the server
-    if(formValue == '') return;
+    if(formValue === '') return;
     await addDoc(messagesRef, {
       text: formValue,
       createdAt: serverTimestamp(),
