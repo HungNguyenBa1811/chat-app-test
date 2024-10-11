@@ -66,7 +66,7 @@ function ChatRoom(){
   const messagesRef = collection(db, 'messages');
 
   // Collect the msg query from msg ref, order by time sent
-  const messagesQuery = query(messagesRef, orderBy('createdAt'));
+  const messagesQuery = query(messagesRef, orderBy('createdAt'), limit(25));
 
   // Using hooks to retrieve data from a snapshot
   const [messages] = useCollectionData(messagesQuery, {idField: 'id'});
@@ -79,6 +79,7 @@ function ChatRoom(){
     e.preventDefault();
     const {uid, photoURL, displayName} = auth.currentUser;
     // Push requested data to the server
+    if(formValue == '') return;
     await addDoc(messagesRef, {
       text: formValue,
       createdAt: serverTimestamp(),
