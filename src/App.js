@@ -58,7 +58,6 @@ function SignOut(){
 }
 
 function ChatRoom(){
-  console.log(auth.currentUser);
   // React hook. 
   const dummy = useRef();
 
