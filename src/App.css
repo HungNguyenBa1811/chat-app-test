@@ -154,10 +154,12 @@ p {
   color: white;
   background: #0b93f6;
   align-self: flex-end;
+  text-align: left;
 }
 .received p {
   background: #e5e5ea;
   color: black;
+  text-align: left;
 }
 
 img {
